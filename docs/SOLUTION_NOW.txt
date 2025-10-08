@@ -1,0 +1,87 @@
+================================================================================
+                    FACTTRACK 2.0 - RUN THIS NOW
+================================================================================
+
+✅ PYTORCH FIX: Applied (weights_only=False)
+✅ STRUCTURE: Reorganized (clean & professional)
+✅ READY: Just restart the app!
+
+================================================================================
+ORGANIZED STRUCTURE:
+================================================================================
+
+FACT-TRACK/
+├── app.py              ← Run this!
+├── config.py           ← Settings
+├── scripts/            ← Training scripts
+├── modules/            ← ML models
+├── frontend/           ← UI files
+├── docs/               ← Documentation
+├── data/               ← Datasets
+└── models/             ← Trained BERT models
+
+================================================================================
+WHAT TO DO NOW:
+================================================================================
+
+Since you already have everything setup, just run:
+
+  python app.py
+
+Then open:
+
+  http://localhost:5000
+
+================================================================================
+EXPECTED OUTPUT:
+================================================================================
+
+✓ Category classifier loaded
+✓ Bias detector loaded          ← Should work now!
+✓ All models loaded successfully!
+
+🌐 Access the application at: http://localhost:5000
+
+================================================================================
+YOU'LL SEE:
+================================================================================
+
+🎨 Stunning UI with:
+  • Animated gradient background
+  • Dark glassmorphism theme
+  • Neural network loading animation
+  • Top-3 category predictions
+  • Bias gradient bars
+  • Medal badges (🥇🥈🥉)
+
+🤖 AI Features:
+  • 20+ categories
+  • 80%+ bias accuracy
+  • BERT with 66M parameters
+  • 2-5 second analysis
+
+================================================================================
+IF APP STILL ERRORS:
+================================================================================
+
+Delete old models and retrain with fixed code:
+
+  rmdir /s models\category_bert
+  rmdir /s models\bias_bert
+  python scripts\train.py
+
+================================================================================
+QUICK REFERENCE:
+================================================================================
+
+Download data:   python scripts/download_data.py
+Train models:    python scripts/train.py
+Test setup:      python scripts/test_installation.py
+Run app:         python app.py
+Open browser:    http://localhost:5000
+
+================================================================================
+
+RUN NOW: python app.py
+
+================================================================================

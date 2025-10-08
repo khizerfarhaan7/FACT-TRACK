@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FactTrack - AI-Powered News Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+                            <circle cx="25" cy="25" r="23" stroke="white" stroke-width="2" fill="none"/>
+                            <path d="M15 25 L22 32 L35 18" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <h1>FactTrack</h1>
+                        <p class="tagline">BERT-Powered News Intelligence</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="model-info" id="modelInfo">
+                        <span class="info-label">Model</span>
+                        <span class="info-value" id="modelBadge">Loading...</span>
+                    </div>
+                    <div class="status-indicator" id="statusIndicator">
+                        <div class="status-dot"></div>
+                        <span class="status-text">Initializing...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section card">
+                <div class="section-header">
+                    <div class="section-icon">🔍</div>
+                    <div>
+                        <h2>Analyze News Article</h2>
+                        <p class="section-subtitle">
+                            Advanced AI analysis with 20+ categories and bias detection
+                        </p>
+                    </div>
+                </div>
+
+                <form id="analysisForm">
+                    <div class="input-container">
+                        <div class="input-wrapper">
+                            <textarea 
+                                id="articleText" 
+                                name="text" 
+                                rows="12" 
+                                placeholder="Paste your news article here...&#10;&#10;✨ The AI will:&#10;  • Classify into 20+ categories&#10;  • Detect potential bias&#10;  • Analyze each paragraph&#10;  • Provide confidence scores"
+                                required
+                            ></textarea>
+                            <div class="input-overlay">
+                                <div class="char-counter">
+                                    <span id="charCount">0</span>
+                                    <span class="char-label">characters</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="file-upload-area">
+                            <input type="file" id="fileUpload" accept=".txt" hidden>
+                            <label for="fileUpload" class="file-upload-btn">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"/>
+                                </svg>
+                                <span>Upload Text File</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="submit" class="btn btn-primary" id="analyzeBtn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Analyze with BERT</span>
+                            <div class="btn-shine"></div>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="clearBtn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Loading State -->
+            <div class="loading-container" id="loadingState" style="display: none;">
+                <div class="card loading-card">
+                    <div class="loading-content">
+                        <div class="neural-network">
+                            <div class="node"></div>
+                            <div class="node"></div>
+                            <div class="node"></div>
+                            <div class="node"></div>
+                            <div class="connection"></div>
+                            <div class="connection"></div>
+                            <div class="connection"></div>
+                        </div>
+                        <h3>Running BERT Analysis</h3>
+                        <p>Processing your article with 66 million parameters...</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <!-- Results Header -->
+                <div class="card results-header-card">
+                    <div class="results-title">
+                        <div class="title-icon">📊</div>
+                        <div>
+                            <h2>Analysis Results</h2>
+                            <p class="results-subtitle">Powered by DistilBERT Neural Network</p>
+                        </div>
+                    </div>
+                    <div class="results-actions">
+                        <button class="btn-icon" id="copyResultsBtn" title="Copy Results">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+                                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" id="downloadResultsBtn" title="Download JSON">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Summary -->
+                <div class="stats-grid" id="resultsSummary">
+                    <!-- Summary cards will be inserted here -->
+                </div>
+
+                <!-- Results List -->
+                <div class="results-list" id="resultsList">
+                    <!-- Results will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Error Message -->
+            <div class="error-container" id="errorMessage" style="display: none;">
+                <div class="card error-card">
+                    <div class="error-content">
+                        <div class="error-icon">
+                            <svg width="40" height="40" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-brand">
+                    <strong>FactTrack</strong> v2.0.0
+                </p>
+                <p class="footer-tech">
+                    Powered by DistilBERT • PyTorch • Flask
+                </p>
+                <p class="footer-stats" id="footerStats">Ready for AI-powered analysis</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
