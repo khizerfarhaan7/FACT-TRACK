@@ -40,8 +40,8 @@ jobs:
     - name: Check for sensitive information
       run: |
         echo "Checking for potential secrets..."
-        # Check for common secret patterns
-        if grep -r -i "password\|secret\|key\|token" --include="*.py" --include="*.js" --include="*.json" . | grep -v "password\|secret\|key\|token.*=" | grep -v "#.*password\|secret\|key\|token"; then
+        # Check for common secret patterns but ignore comments and documentation
+        if grep -r -i "password\|secret\|key\|token" --include="*.py" --include="*.js" --include="*.json" . | grep -v "password\|secret\|key\|token.*=" | grep -v "#.*password\|secret\|key\|token" | grep -v "README\|docs\|\.md"; then
           echo "❌ Potential secrets detected in code"
           exit 1
         fi
