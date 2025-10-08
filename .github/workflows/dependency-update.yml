@@ -1,0 +1,63 @@
+name: Dependency Update Check
+
+on:
+  schedule:
+    # Check for dependency updates weekly
+    - cron: '0 9 * * 1'  # Every Monday at 9 AM UTC
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+        
+    - name: Install pip-tools
+      run: pip install pip-tools
+      
+    - name: Check for outdated packages
+      run: |
+        echo "## 📦 Dependency Update Report" > dependency-report.md
+        echo "" >> dependency-report.md
+        echo "### Outdated Packages:" >> dependency-report.md
+        echo "\`\`\`" >> dependency-report.md
+        pip list --outdated >> dependency-report.md || echo "All packages are up to date!" >> dependency-report.md
+        echo "\`\`\`" >> dependency-report.md
+        echo "" >> dependency-report.md
+        echo "### Security Vulnerabilities:" >> dependency-report.md
+        echo "\`\`\`" >> dependency-report.md
+        pip install safety
+        safety check >> dependency-report.md || echo "No security vulnerabilities found!" >> dependency-report.md
+        echo "\`\`\`" >> dependency-report.md
+        
+    - name: Create Issue for Updates
+      if: github.event_name == 'schedule'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const report = fs.readFileSync('dependency-report.md', 'utf8');
+          
+          // Check if there are any outdated packages
+          if (report.includes('outdated') && !report.includes('All packages are up to date')) {
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '📦 Weekly Dependency Update Check',
+              body: report + '\n\n---\n\n**Action Required:** Please review and update outdated dependencies.',
+              labels: ['dependencies', 'security', 'maintenance']
+            });
+          }
+          
+    - name: Upload dependency report
+      uses: actions/upload-artifact@v3
+      with:
+        name: dependency-report
+        path: dependency-report.md

@@ -1,0 +1,38 @@
+# CODEOWNERS file for FACT-TRACK repository
+# This file defines who can approve changes to your repository
+# Lines starting with # are comments and will be ignored
+
+# Global owners - these people will be requested for review on any pull request
+# Only you can approve changes to this repository
+* @khizerfarhaan7
+
+# Specific file/directory owners (optional - you can customize these)
+# Core application files require your approval
+/app.py @khizerfarhaan7
+/config.py @khizerfarhaan7
+/requirements*.txt @khizerfarhaan7
+
+# Module files require your approval
+/modules/ @khizerfarhaan7
+
+# Training and scripts require your approval
+/scripts/ @khizerfarhaan7
+
+# Documentation files
+/docs/ @khizerfarhaan7
+/README.md @khizerfarhaan7
+
+# Configuration and deployment files
+/Procfile @khizerfarhaan7
+/.github/ @khizerfarhaan7
+
+# Security-related files
+/.github/CODEOWNERS @khizerfarhaan7
+/.github/workflows/ @khizerfarhaan7
+/SECURITY.md @khizerfarhaan7
+
+# Data files (if any sensitive data is added)
+/data/ @khizerfarhaan7
+
+# Model files
+/models/ @khizerfarhaan7

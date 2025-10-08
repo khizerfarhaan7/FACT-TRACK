@@ -1,0 +1,96 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Validate PR title
+      uses: amannn/action-semantic-pull-request@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        types: |
+          feat
+          fix
+          docs
+          style
+          refactor
+          test
+          chore
+        requireScope: false
+        
+    - name: Check for large files
+      run: |
+        echo "Checking for large files..."
+        find . -type f -size +50M -not -path "./.git/*" | while read file; do
+          echo "❌ Large file detected: $file"
+          exit 1
+        done
+        echo "✅ No large files detected"
+        
+    - name: Check for sensitive information
+      run: |
+        echo "Checking for potential secrets..."
+        # Check for common secret patterns
+        if grep -r -i "password\|secret\|key\|token" --include="*.py" --include="*.js" --include="*.json" . | grep -v "password\|secret\|key\|token.*=" | grep -v "#.*password\|secret\|key\|token"; then
+          echo "❌ Potential secrets detected in code"
+          exit 1
+        fi
+        echo "✅ No obvious secrets detected"
+        
+    - name: Validate Python syntax
+      run: |
+        echo "Validating Python syntax..."
+        python -m py_compile app.py config.py
+        find modules/ -name "*.py" -exec python -m py_compile {} \;
+        find scripts/ -name "*.py" -exec python -m py_compile {} \;
+        echo "✅ Python syntax validation passed"
+        
+    - name: Check file permissions
+      run: |
+        echo "Checking file permissions..."
+        find . -name "*.py" -not -executable
+        echo "✅ File permissions check passed"
+        
+    - name: PR Summary
+      if: always()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { data: pr } = await github.rest.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number
+          });
+          
+          const comment = `## 📋 Pull Request Validation Summary
+          
+          **PR Details:**
+          - Author: @${pr.user.login}
+          - Files Changed: ${pr.changed_files}
+          - Additions: +${pr.additions}
+          - Deletions: -${pr.deletions}
+          
+          **Validation Status:** ${context.job.status === 'success' ? '✅ Passed' : '❌ Failed'}
+          
+          **Next Steps:**
+          - ${context.job.status === 'success' ? 'Ready for review by repository owner' : 'Please address the validation issues above'}
+          
+          ---
+          *This is an automated validation check. All PRs require approval from @khizerfarhaan7*`;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });

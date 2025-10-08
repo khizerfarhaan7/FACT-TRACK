@@ -8,6 +8,8 @@ Analyze news articles with BERT transformers: 20+ categories, bias detection (80
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red)
 ![BERT](https://img.shields.io/badge/Model-DistilBERT-orange)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Security](https://img.shields.io/badge/Security-Protected-brightgreen)
+![Access](https://img.shields.io/badge/Access-Owner%20Only-red)
 
 **Repository**: https://github.com/khizerfarhaan7/FACT-TRACK
 
@@ -281,14 +283,25 @@ gunicorn -w 4 -b 0.0.0.0:5000 app:app
 
 ---
 
-## 🤝 Contributing
+## 🔒 Security & Access Control
 
-1. Fork repository
-2. Create branch: `git checkout -b feature/name`
-3. Make changes
-4. Commit: `git commit -m 'Add feature'`
-5. Push: `git push origin feature/name`
-6. Open Pull Request
+**IMPORTANT**: This repository is protected by strict security measures:
+
+- 🔐 **Branch Protection**: All changes must go through pull requests
+- 👤 **Code Ownership**: Only the repository owner can approve changes
+- 🛡️ **Automated Security**: Daily vulnerability scans and dependency checks
+- 📋 **Validation**: All PRs are automatically validated before review
+
+### Contributing (Secure Process)
+
+1. **Create Issue First**: Describe your proposed change
+2. **Fork Repository**: Create your own copy
+3. **Create Branch**: `git checkout -b feature/name`
+4. **Make Changes**: Follow security guidelines
+5. **Create Pull Request**: Wait for approval from repository owner
+6. **Security Review**: All changes are security-validated
+
+**📖 Full Guidelines**: See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md)
 
 **Ideas**: Multi-language support, more categories, sentiment analysis, better UI
 
