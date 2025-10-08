@@ -181,14 +181,20 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific
-# Uncomment these if you want to ignore model files (they're large)
-# models/*.pt
-# models/*.bin
-# models/*.safetensors
+# Ignore large model files (they're generated during training)
+models/*.pt
+models/*.bin
+models/*.safetensors
+models/*.png
+models/*.json
+models/checkpoints/
+models/bias_bert/
+models/category_bert/
 
-# Uncomment if you want to ignore data files
-# data/raw/
-# data/processed/
+# Ignore large data files
+data/raw/
+data/processed/
+data/cache/
 
 # Logs
 *.log
