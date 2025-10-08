@@ -1,0 +1,3 @@
+# This directory will contain trained model files after running train.py
+# Model files are gitignored but this directory structure is preserved
+
